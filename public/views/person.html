@@ -1,0 +1,127 @@
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#object"> Person Administration</a></li>
+
+
+</ul>
+
+<div id='content' class="tab-content">
+    <div class="tab-pane active" id="object">
+
+
+        <br/> click to add new Person
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal" ng-click="initnewper()">Add new Person</button>
+        <br/>
+
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-body">
+
+                        <div class='row'>
+                            <div class="col-lg-12">
+                                <div class="titleprghp">
+                                    <span class="prg" style="color:white">Person details</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class="col-lg-6">
+                                <!--<form class="form-horizontal" role="form">-->
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">Name :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" lname="name;" id="name" ng-model="newPerson.name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="id" class="col-sm-2 control-label">ID :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" lname="id;" id="id" ng-model="newPerson.id">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label   class="col-sm-2 control-label">Company :</label>
+                                    <select class="form-control" 
+                                     
+      ng-options="company.id as company.name for company in companies  track by company.id"
+      ng-model="newPerson.companyId"></select>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="boutton">
+                                        <div class="col-lg-7 col-md-7 hidden-md hidden-xs"></div>
+                                        <div class="col-lg-1 col-md-1 col-xs-12">
+                                            <button name="submit" id="cancel" type="reset" value="reset" class="btn btn-default" data-dismiss="modal">Cancel<span class="glyphicon glyphicon-remove"></span></button>
+                                        </div>
+                                        <div class="col-lg-3 col-lg-offset-1 col-md-3 col-md-offset-1 col-xs-12">
+                                            <button name="submit" id="submit" type="submit" value="submit" class="btn btn-default" ng-click="savePerson()"><span class="glyphicon glyphicon-floppy-disk"></span>Save<span class="glyphicon glyphicon-chevron-right"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <table id="personTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Person Name</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="person in persons track by person.id">
+
+                    <td>{{person.id}}</td>
+                    <td>{{person.name}}</td>
+
+                    <td>
+                        <!-- Single button -->
+                        <a data-toggle="modal" data-target="#myModal" ng-click="initnewper(person)">
+
+
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                        <a ng-click="deletePerson(person.id)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+</div>
+<script type="text/javascript">
+    $('#myTab a').click(function(e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
+    $(document).ready(function() {
+        $('#personTable').DataTable({
+            "pagingType": "full_numbers"
+        });
+    });
+</script>
